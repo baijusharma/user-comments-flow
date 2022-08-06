@@ -1,7 +1,7 @@
 package com.mydemo.usercomments.network
 
-import com.mydemo.usercomments.model.CommentsResponse
-import com.mydemo.usercomments.model.PostResponse
+import com.mydemo.usercomments.data.model.CommentsResponse
+import com.mydemo.usercomments.data.model.PostResponse
 import com.mydemo.usercomments.utils.Constants
 import retrofit2.Response
 import retrofit2.http.GET

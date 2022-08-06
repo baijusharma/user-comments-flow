@@ -1,8 +1,7 @@
-package com.mydemo.usercomments.network.repo.feeds
+package com.mydemo.usercomments.network.repository
 
-import com.mydemo.usercomments.model.CommentsResponse
-import com.mydemo.usercomments.model.PostResponse
-import com.mydemo.usercomments.model.PostResponseItem
+import com.mydemo.usercomments.data.model.CommentsResponse
+import com.mydemo.usercomments.data.model.PostResponse
 import com.mydemo.usercomments.network.ApiService
 import com.mydemo.usercomments.network.BaseApiResponse
 import com.mydemo.usercomments.network.NetworkResponse
@@ -14,7 +13,8 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 @ViewModelScoped
-class FeedsRepository @Inject constructor(private val apiService: ApiService): BaseApiResponse(), IFeeds {
+class FeedsRepository @Inject constructor(private val apiService: ApiService): BaseApiResponse(),
+    IFeeds {
 
     override suspend fun getAllPost(): Flow<NetworkResponse<PostResponse>> {
         return flow {
