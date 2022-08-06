@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class PostResponseItem(
     @SerializedName("body")
     val body: String?,
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("it")
     val id: Int?,
     @SerializedName("title")

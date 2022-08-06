@@ -14,7 +14,7 @@ data class CommentsResponseItem(
     val body: String?,
     @SerializedName("email")
     val email: String,
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
     val id: Int?,
     @SerializedName("name")

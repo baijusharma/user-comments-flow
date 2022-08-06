@@ -26,7 +26,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideUserDao(db: FeedsDatabase): UsersDao {
-        return db.usersDao
+    fun provideUserDao(feedsDatabase: FeedsDatabase): UsersDao {
+        return feedsDatabase.usersDao
     }
 }

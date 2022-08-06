@@ -1,6 +1,6 @@
 package com.mydemo.usercomments.di
 
-import com.mydemo.usercomments.utils.Constants.BASE_URL
+import com.mydemo.usercomments.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

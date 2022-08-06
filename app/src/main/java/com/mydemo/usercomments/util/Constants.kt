@@ -1,4 +1,4 @@
-package com.mydemo.usercomments.utils
+package com.mydemo.usercomments.util
 
 object Constants {
 
