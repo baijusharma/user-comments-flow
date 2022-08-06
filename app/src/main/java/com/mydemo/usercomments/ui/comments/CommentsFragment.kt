@@ -29,5 +29,22 @@ class UserComments : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setInitialData()
+        bindObservers()
+    }
 
+    private fun setInitialData() {
+
+    }
+
+    private fun bindObservers() {
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

@@ -5,7 +5,7 @@ import com.mydemo.usercomments.data.model.PostResponse
 import com.mydemo.usercomments.network.NetworkResponse
 import kotlinx.coroutines.flow.Flow
 
-interface IFeeds {
+interface IFeedsRepo {
     suspend fun getAllPost(): Flow<NetworkResponse<PostResponse>>
     suspend fun getAllComments(): Flow<NetworkResponse<CommentsResponse>>
 }
