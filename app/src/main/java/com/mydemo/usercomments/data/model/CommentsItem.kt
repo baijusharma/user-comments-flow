@@ -6,25 +6,24 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
- class PostResponse(
-
-	@field:SerializedName("PostResponse")
-	val postResponse: List<PostItem> = arrayListOf()
-)
 
 @Parcelize
-@Entity(tableName = "post")
-data class PostItem(
+@Entity(tableName = "comments")
+data class CommentsItem(
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("postId")
+	val postId: Int? = null,
+
 	@PrimaryKey(autoGenerate = false)
 	@field:SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("title")
-	val title: String? = null,
-
 	@field:SerializedName("body")
 	val body: String? = null,
 
-	@field:SerializedName("userId")
-	val userId: Int? = null
+	@field:SerializedName("email")
+	val email: String? = null
 ): Parcelable

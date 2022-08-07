@@ -25,7 +25,6 @@ class CommentAdapter :
     class CommentsViewHolder(private val binding: CommentItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(commentItem: CommentsItem) {
             binding.apply {
                 txtViewName.text = commentItem.name

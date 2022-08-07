@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mydemo.usercomments.data.model.CommentsResponse
 import com.mydemo.usercomments.data.model.PostItem
 import com.mydemo.usercomments.network.NetworkResponse
 import com.mydemo.usercomments.network.repository.IFeedsRepo
@@ -19,23 +18,25 @@ class PostViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : View
     val postResponse: LiveData<NetworkResponse<List<PostItem>>>
         get() = _postResponse
 
-    private val _commentsResponse = MutableLiveData<NetworkResponse<CommentsResponse>>()
-    val commentsResponse: LiveData<NetworkResponse<CommentsResponse>>
-        get() = _commentsResponse
+    private val _postData = MutableLiveData<List<PostItem>>()
+    val postData: LiveData<List<PostItem>>
+        get() = _postData
 
     init {
-        fetchPostAndComments()
+        fetchPostFromApi()
     }
 
-    private fun fetchPostAndComments() = viewModelScope.launch {
+    private fun fetchPostFromApi() = viewModelScope.launch {
         _postResponse.value = NetworkResponse.Loading()
         feedRepo.getAllPost().collect {
             _postResponse.value = it
         }
-        /* feedRepo.getAllComments().collect{
-             _commentsResponse.value = it
-         }*/
     }
 
+    fun getUserPost() = viewModelScope.launch {
+        feedRepo.getAllUserPost().collect {
+            _postData.value = it
+        }
+    }
 
 }

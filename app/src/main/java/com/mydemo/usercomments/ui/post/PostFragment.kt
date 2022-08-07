@@ -4,12 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mydemo.usercomments.R
 import com.mydemo.usercomments.base.BaseFragment
 import com.mydemo.usercomments.databinding.FragmentPostBinding
 import com.mydemo.usercomments.network.NetworkResponse
+import com.mydemo.usercomments.ui.comments.CommentsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +30,7 @@ class PostFragment : BaseFragment(),IPostClickListener {
     private val postAdapter: PostAdapter by lazy {
         PostAdapter(this)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,19 +64,28 @@ class PostFragment : BaseFragment(),IPostClickListener {
                 }
                 is NetworkResponse.Success -> {
                     hideProgressDialog()
-                    it.data?.let {postList ->
-                        postAdapter.submitList(postList)
-                    }
+                    postViewModel.getUserPost()
                 }
                 is NetworkResponse.Error -> {
-
+                    hideProgressDialog()
+                    showToast(it.message)
                 }
+            }
+        }
+
+        postViewModel.postData.observe(viewLifecycleOwner){
+            it?.let {postList ->
+                postAdapter.submitList(postList)
             }
         }
     }
 
 
-    override fun onItemClick(id: Int?) {
+    override fun onItemClick(id: Int) {
+        val direction = PostFragmentDirections.actionPostFragmentToUserComments(
+            postId = id
+        )
+        findNavController().navigate(direction)
     }
 
     override fun onDestroyView() {

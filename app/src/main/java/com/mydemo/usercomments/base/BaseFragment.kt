@@ -13,7 +13,7 @@ open class BaseFragment : Fragment() {
         ProgressDialog(requireActivity())
     }
 
-   private fun showToast(strMessage: String?) {
+   public fun showToast(strMessage: String?) {
         Toast.makeText(requireContext(), strMessage, Toast.LENGTH_SHORT).show()
     }
 

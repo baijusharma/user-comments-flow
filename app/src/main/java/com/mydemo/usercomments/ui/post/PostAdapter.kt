@@ -49,7 +49,7 @@ class PostAdapter(private val listener: IPostClickListener) :
 }
 
 interface IPostClickListener {
-    fun onItemClick(id: Int?)
+    fun onItemClick(id: Int)
 }
 
 class PostDiffUtil : DiffUtil.ItemCallback<PostItem>() {

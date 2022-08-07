@@ -9,14 +9,20 @@
         android:id="@+id/postFragment"
         android:name="com.mydemo.usercomments.ui.post.PostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" >
+        tools:layout="@layout/fragment_post">
         <action
             android:id="@+id/action_postFragment_to_userComments"
             app:destination="@id/userComments" />
+
     </fragment>
     <fragment
         android:id="@+id/userComments"
-        android:name="com.mydemo.usercomments.ui.UserComments"
+        android:name="com.mydemo.usercomments.ui.comments.CommentsFragment"
         android:label="fragment_user_comments"
-        tools:layout="@layout/fragment_user_comments" />
+        tools:layout="@layout/fragment_user_comments">
+        <argument
+            android:name="postId"
+            android:defaultValue='0'
+            app:argType="integer" />
+    </fragment>
 </navigation>
