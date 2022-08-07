@@ -21,7 +21,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             appContext,
             FeedsDatabase::class.java,
-            "user_feeds"
+            FeedsDatabase.DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
 

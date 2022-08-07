@@ -5,17 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.mydemo.usercomments.R
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mydemo.usercomments.base.BaseFragment
 import com.mydemo.usercomments.databinding.FragmentPostBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment() {
+class PostFragment : BaseFragment(),IPostClickListener {
 
     private val postViewModel: PostViewModel by viewModels()
     private var _binding: FragmentPostBinding? = null
     private val binding get() = _binding!!
+
+    private val postAdapter: PostAdapter by lazy {
+        PostAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +39,19 @@ class PostFragment : BaseFragment() {
     }
 
     private fun setInitialData() {
-
+        binding.rvPost.apply {
+            DividerItemDecoration(context, (layoutManager as LinearLayoutManager).orientation)
+            adapter = postAdapter
+            setHasFixedSize(true)
+        }
     }
 
     private fun bindObservers() {
 
+    }
+
+
+    override fun onItemClick(id: Int?) {
     }
 
     override fun onDestroyView() {

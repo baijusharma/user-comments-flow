@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 @ViewModelScoped
-class FeedsRepoRepository @Inject constructor(private val apiService: ApiService): BaseApiResponse(),
+class FeedsRepoRepository @Inject constructor(private val apiService: ApiService) :
+    BaseApiResponse(),
     IFeedsRepo {
 
     override suspend fun getAllPost(): Flow<NetworkResponse<PostResponse>> {
@@ -27,4 +28,6 @@ class FeedsRepoRepository @Inject constructor(private val apiService: ApiService
             emit(safeApiCall { apiService.getComments() })
         }.flowOn(Dispatchers.IO)
     }
+
+
 }

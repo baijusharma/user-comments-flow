@@ -8,4 +8,8 @@ import com.mydemo.usercomments.data.model.PostItem
 @Database(entities = [PostItem::class, CommentsItem::class], version = 1, exportSchema = false)
 abstract class FeedsDatabase: RoomDatabase()  {
     abstract val usersDao: UsersDao
+
+    companion object {
+        const val DATABASE_NAME: String = "user_feeds"
+    }
 }

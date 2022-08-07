@@ -1,5 +1,6 @@
 package com.mydemo.usercomments.di
 
+import com.mydemo.usercomments.data.local.UsersDao
 import com.mydemo.usercomments.network.ApiService
 import com.mydemo.usercomments.network.repository.FeedsRepoRepository
 import com.mydemo.usercomments.network.repository.IFeedsRepo

@@ -2,14 +2,13 @@ package com.mydemo.usercomments.ui.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mydemo.usercomments.data.model.PostItem
 import com.mydemo.usercomments.databinding.PostItemBinding
 
-class PostAdapter(private val listener: AdapterView.OnItemClickListener) :
+class PostAdapter(private val listener: IPostClickListener) :
     ListAdapter<PostItem, PostAdapter.PostViewHolder>(PostDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -19,20 +18,20 @@ class PostAdapter(private val listener: AdapterView.OnItemClickListener) :
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = getItem(position)
         post?.let {
-            holder.bind(it)
+            holder.bind(it,listener)
         }
     }
 
     class PostViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(postItem: PostItem) {
+        fun bind(postItem: PostItem, listener: IPostClickListener) {
             binding.apply {
                 txtViewTitle.text = postItem.title
                 txtViewBody.text = postItem.body
                 executePendingBindings()
                 root.setOnClickListener {
-
+                    listener.onItemClick(postItem.id)
                 }
             }
         }
@@ -49,8 +48,8 @@ class PostAdapter(private val listener: AdapterView.OnItemClickListener) :
 
 }
 
-interface OnItemClickListener {
-    fun onItemClick(postItem: PostItem)
+interface IPostClickListener {
+    fun onItemClick(id: Int?)
 }
 
 class PostDiffUtil : DiffUtil.ItemCallback<PostItem>() {
