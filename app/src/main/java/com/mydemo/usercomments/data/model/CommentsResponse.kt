@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class CommentsResponse(
+class CommentsResponse(
 
 	@field:SerializedName("CommentsResponse")
-	val commentsResponse: ArrayList<CommentsItem> = arrayListOf()
+	val commentsResponse: List<CommentsItem> = arrayListOf()
 )
 
 @Parcelize

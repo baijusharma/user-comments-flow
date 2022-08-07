@@ -10,9 +10,9 @@ import com.mydemo.usercomments.data.model.PostItem
 interface UsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPost(postEntity: PostItem): Long
+     fun insertPost(postEntity: List<PostItem>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertComments(commentEntity: CommentsItem): Long
+     fun insertComments(commentEntity: List<CommentsItem>)
 
 }

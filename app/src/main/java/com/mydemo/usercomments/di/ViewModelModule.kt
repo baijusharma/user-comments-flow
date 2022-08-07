@@ -14,6 +14,6 @@ import dagger.hilt.android.components.ViewModelComponent
 object ViewModelModule {
 
     @Provides
-    fun provideApiRepository(apiService: ApiService) = FeedsRepoRepository(apiService) as IFeedsRepo
+    fun provideApiRepository(apiService: ApiService, usersDao: UsersDao) = FeedsRepoRepository(apiService, usersDao) as IFeedsRepo
 
 }

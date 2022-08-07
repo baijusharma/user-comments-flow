@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mydemo.usercomments.base.BaseFragment
 import com.mydemo.usercomments.databinding.FragmentPostBinding
+import com.mydemo.usercomments.network.NetworkResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +48,22 @@ class PostFragment : BaseFragment(),IPostClickListener {
     }
 
     private fun bindObservers() {
+        postViewModel.postResponse.observe(viewLifecycleOwner){
+            when (it) {
+                is NetworkResponse.Loading -> {
+                    showProgressDialog()
+                }
+                is NetworkResponse.Success -> {
+                    hideProgressDialog()
+                    it.data?.let {postList ->
+                        postAdapter.submitList(postList)
+                    }
+                }
+                is NetworkResponse.Error -> {
 
+                }
+            }
+        }
     }
 
 

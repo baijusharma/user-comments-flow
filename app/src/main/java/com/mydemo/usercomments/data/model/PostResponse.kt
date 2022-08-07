@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class PostResponse(
+ class PostResponse(
 
 	@field:SerializedName("PostResponse")
-	val postResponse: ArrayList<PostItem> = arrayListOf()
+	val postResponse: List<PostItem> = arrayListOf()
 )
 
 @Parcelize
