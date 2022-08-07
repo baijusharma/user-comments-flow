@@ -1,5 +1,6 @@
 package com.mydemo.usercomments.di
 
+import com.mydemo.usercomments.network.ApiService
 import com.mydemo.usercomments.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -53,4 +54,7 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 }

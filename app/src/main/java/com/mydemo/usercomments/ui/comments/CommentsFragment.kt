@@ -12,7 +12,7 @@ import com.mydemo.usercomments.databinding.FragmentUserCommentsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class UserComments : BaseFragment() {
+class CommentsFragment : BaseFragment() {
 
     private val postViewModel: CommentsViewModel by viewModels()
 
