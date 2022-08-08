@@ -27,13 +27,9 @@ class CommentAdapter :
 
         fun bind(commentItem: CommentsItem) {
             binding.apply {
-                txtViewName.text = commentItem.name
                 txtViewEmail.text = commentItem.email
                 txtViewComments.text = commentItem.body
                 executePendingBindings()
-                root.setOnClickListener {
-
-                }
             }
         }
 

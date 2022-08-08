@@ -2,6 +2,7 @@ package com.mydemo.usercomments.di
 
 import com.mydemo.usercomments.network.ApiService
 import com.mydemo.usercomments.util.Constants.BASE_URL
+import com.mydemo.usercomments.util.NoConnectionInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,13 +18,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+
     @Singleton
     @Provides
     fun provideHTTPClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
+        httpLoggingInterceptor: HttpLoggingInterceptor,noConnectionInterceptor: NoConnectionInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(noConnectionInterceptor)
             .readTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(20, TimeUnit.SECONDS)
             .build()

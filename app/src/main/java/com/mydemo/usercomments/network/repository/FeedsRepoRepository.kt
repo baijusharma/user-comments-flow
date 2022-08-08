@@ -49,6 +49,14 @@ class FeedsRepoRepository @Inject constructor(
         return flow { emit(usersDao.getAllComments()) }.flowOn(Dispatchers.IO)
     }
 
+    override fun searchPostInDatabase(searchQuery: String): Flow<List<PostItem>> {
+        return flow { emit(usersDao.searchPostDatabase(searchQuery)) }.flowOn(Dispatchers.IO)
+    }
+
+    override fun searchCommentsInTable(searchQuery: String): Flow<List<CommentsItem>> {
+        return flow { emit(usersDao.searchCommentsDatabase(searchQuery)) }.flowOn(Dispatchers.IO)
+    }
+
 
     // fun getCommentsByPost() = usersDao.getComments()
 }

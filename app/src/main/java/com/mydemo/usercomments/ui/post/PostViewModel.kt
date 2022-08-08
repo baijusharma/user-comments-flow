@@ -1,9 +1,6 @@
 package com.mydemo.usercomments.ui.post
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mydemo.usercomments.data.model.PostItem
 import com.mydemo.usercomments.network.NetworkResponse
 import com.mydemo.usercomments.network.repository.IFeedsRepo
@@ -37,6 +34,10 @@ class PostViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : View
         feedRepo.getAllUserPost().collect {
             _postData.value = it
         }
+    }
+
+    fun searchPostInDatabase(searchQuery: String): LiveData<List<PostItem>> {
+        return feedRepo.searchPostInDatabase(searchQuery).asLiveData()
     }
 
 }

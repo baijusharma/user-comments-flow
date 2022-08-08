@@ -4,24 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mydemo.usercomments.R
 import com.mydemo.usercomments.base.BaseFragment
 import com.mydemo.usercomments.databinding.FragmentPostBinding
 import com.mydemo.usercomments.network.NetworkResponse
-import com.mydemo.usercomments.ui.comments.CommentsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment(),IPostClickListener {
+class PostFragment : BaseFragment(), IPostClickListener, SearchView.OnQueryTextListener {
 
     private val postViewModel: PostViewModel by viewModels()
     private var _binding: FragmentPostBinding? = null
@@ -30,7 +24,6 @@ class PostFragment : BaseFragment(),IPostClickListener {
     private val postAdapter: PostAdapter by lazy {
         PostAdapter(this)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +47,12 @@ class PostFragment : BaseFragment(),IPostClickListener {
             adapter = postAdapter
             setHasFixedSize(true)
         }
+        binding.searchPost.isSubmitButtonEnabled = true
+        binding.searchPost.setOnQueryTextListener(this)
     }
 
     private fun bindObservers() {
-        postViewModel.postResponse.observe(viewLifecycleOwner){
+        postViewModel.postResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkResponse.Loading -> {
                     showProgressDialog()
@@ -73,8 +68,8 @@ class PostFragment : BaseFragment(),IPostClickListener {
             }
         }
 
-        postViewModel.postData.observe(viewLifecycleOwner){
-            it?.let {postList ->
+        postViewModel.postData.observe(viewLifecycleOwner) {
+            it?.let { postList ->
                 postAdapter.submitList(postList)
             }
         }
@@ -89,5 +84,25 @@ class PostFragment : BaseFragment(),IPostClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            searchDataBase(query)
+        }
+        return true
+    }
+
+    private fun searchDataBase(query: String?) {
+        val searchQuery = "%$query%"
+        postViewModel.searchPostInDatabase(searchQuery).observe(viewLifecycleOwner) { list->
+            list?.let { postList ->
+                postAdapter.submitList(postList)
+            }
+        }
     }
 }

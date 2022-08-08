@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,7 +18,7 @@ import com.mydemo.usercomments.ui.post.PostAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CommentsFragment : BaseFragment() {
+class CommentsFragment : BaseFragment(), SearchView.OnQueryTextListener {
 
     private val commentsViewModel: CommentsViewModel by viewModels()
 
@@ -54,7 +55,9 @@ class CommentsFragment : BaseFragment() {
             adapter = commentAdapter
             setHasFixedSize(true)
         }
-        commentsViewModel.fetchCommentsById(mPostId)
+        binding.searchComments.isSubmitButtonEnabled = true
+        binding.searchComments.setOnQueryTextListener(this)
+        commentsViewModel.fetchCommentsById()
     }
 
     private fun bindObservers() {
@@ -79,11 +82,30 @@ class CommentsFragment : BaseFragment() {
                 commentAdapter.submitList(commentsList)
             }
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            searchDataBase(query)
+        }
+        return true
+    }
+
+    private fun searchDataBase(query: String?) {
+        val searchQuery = "%$query%"
+        commentsViewModel.searchCommentInTable(searchQuery).observe(viewLifecycleOwner) { list->
+            list?.let { commentsList ->
+                commentAdapter.submitList(commentsList)
+            }
+        }
     }
 }

@@ -1,11 +1,7 @@
 package com.mydemo.usercomments.ui.comments
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.mydemo.usercomments.data.model.CommentsItem
-import com.mydemo.usercomments.data.model.PostItem
 import com.mydemo.usercomments.network.NetworkResponse
 import com.mydemo.usercomments.network.repository.IFeedsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,11 +21,12 @@ class CommentsViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : 
 
     var postId: Int? = null
 
-
-     fun fetchCommentsById(postId: Int) = viewModelScope.launch {
+    fun fetchCommentsById() = viewModelScope.launch {
         _commentsResponse.value = NetworkResponse.Loading()
-        feedRepo.getAllComments(postId).collect {
-            _commentsResponse.value = it
+        postId?.let {
+            feedRepo.getAllComments(it).collect {
+                _commentsResponse.value = it
+            }
         }
     }
 
@@ -38,4 +35,9 @@ class CommentsViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : 
             _commentData.value = it
         }
     }
+
+    fun searchCommentInTable(searchQuery: String): LiveData<List<CommentsItem>> {
+        return feedRepo.searchCommentsInTable(searchQuery).asLiveData()
+    }
+
 }

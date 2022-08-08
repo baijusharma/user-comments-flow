@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mydemo.usercomments.data.model.CommentsItem
 import com.mydemo.usercomments.data.model.PostItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UsersDao {
@@ -21,4 +22,10 @@ interface UsersDao {
 
     @Query("SELECT * FROM comments")
     fun getAllComments(): List<CommentsItem>
+
+    @Query("SELECT * FROM post WHERE body LIKE :searchQuery OR title LIKE :searchQuery")
+    fun searchPostDatabase(searchQuery: String): List<PostItem>
+
+    @Query("SELECT * FROM comments WHERE body LIKE :searchQuery OR email LIKE :searchQuery")
+    fun searchCommentsDatabase(searchQuery: String): List<CommentsItem>
 }
