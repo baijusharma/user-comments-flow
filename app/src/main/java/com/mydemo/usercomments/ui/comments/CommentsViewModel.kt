@@ -31,8 +31,10 @@ class CommentsViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : 
     }
 
     fun getUserCommentsFromLocal() = viewModelScope.launch {
-        feedRepo.getAllUserComments().collect {
-            _commentData.value = it
+        postId?.let {
+            feedRepo.getAllUserComments(it).collect {
+                _commentData.value = it
+            }
         }
     }
 

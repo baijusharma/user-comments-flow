@@ -9,7 +9,7 @@ interface IFeedsRepo {
     suspend fun getAllPost(): Flow<NetworkResponse<List<PostItem>>>
     suspend fun getAllComments(postId: Int): Flow<NetworkResponse<List<CommentsItem>>>
     fun getAllUserPost(): Flow<List<PostItem>>
-    fun getAllUserComments(): Flow<List<CommentsItem>>
+    fun getAllUserComments(postId: Int): Flow<List<CommentsItem>>
     fun searchPostInDatabase(searchQuery: String): Flow<List<PostItem>>
     fun searchCommentsInTable(searchQuery: String): Flow<List<CommentsItem>>
 }
