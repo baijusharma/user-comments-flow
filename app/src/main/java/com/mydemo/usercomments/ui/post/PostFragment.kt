@@ -64,7 +64,7 @@ class PostFragment : BaseFragment(),IPostClickListener {
                 }
                 is NetworkResponse.Success -> {
                     hideProgressDialog()
-                    postViewModel.getUserPost()
+                    postViewModel.getUserPostFromLocal()
                 }
                 is NetworkResponse.Error -> {
                     hideProgressDialog()
@@ -82,9 +82,7 @@ class PostFragment : BaseFragment(),IPostClickListener {
 
 
     override fun onItemClick(id: Int) {
-        val direction = PostFragmentDirections.actionPostFragmentToUserComments(
-            postId = id
-        )
+        val direction = PostFragmentDirections.actionPostFragmentToUserComments(postId = id)
         findNavController().navigate(direction)
     }
 

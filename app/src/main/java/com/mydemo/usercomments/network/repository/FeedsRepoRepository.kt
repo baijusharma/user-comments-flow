@@ -31,9 +31,9 @@ class FeedsRepoRepository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getAllComments(): Flow<NetworkResponse<List<CommentsItem>>> {
+    override suspend fun getAllComments(postId: Int): Flow<NetworkResponse<List<CommentsItem>>> {
         return flow {
-            val result = safeApiCall { apiService.getComments() }
+            val result = safeApiCall { apiService.getComments(postId) }
             result.data?.let {
                 usersDao.insertComments(it)
             }
@@ -43,6 +43,10 @@ class FeedsRepoRepository @Inject constructor(
 
     override fun getAllUserPost(): Flow<List<PostItem>> {
         return flow { emit(usersDao.getAllPost()) }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getAllUserComments(): Flow<List<CommentsItem>> {
+        return flow { emit(usersDao.getAllComments()) }.flowOn(Dispatchers.IO)
     }
 
 

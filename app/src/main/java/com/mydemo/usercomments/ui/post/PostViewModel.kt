@@ -33,7 +33,7 @@ class PostViewModel @Inject constructor(private val feedRepo: IFeedsRepo) : View
         }
     }
 
-    fun getUserPost() = viewModelScope.launch {
+    fun getUserPostFromLocal() = viewModelScope.launch {
         feedRepo.getAllUserPost().collect {
             _postData.value = it
         }

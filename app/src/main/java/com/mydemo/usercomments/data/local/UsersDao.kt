@@ -18,4 +18,7 @@ interface UsersDao {
 
     @Query("SELECT * FROM post")
     fun getAllPost(): List<PostItem>
+
+    @Query("SELECT * FROM comments")
+    fun getAllComments(): List<CommentsItem>
 }
