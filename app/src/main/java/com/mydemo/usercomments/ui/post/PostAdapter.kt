@@ -30,9 +30,9 @@ class PostAdapter(private val listener: IPostClickListener) :
                 txtViewTitle.text = postItem.title
                 txtViewBody.text = postItem.body
                 executePendingBindings()
-                root.setOnClickListener {
-                    listener.onItemClick(postItem.id)
-                }
+            }
+            binding.root.setOnClickListener {
+                listener.onItemClick(postItem.id)
             }
         }
 
