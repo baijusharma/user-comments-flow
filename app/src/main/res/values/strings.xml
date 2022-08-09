@@ -7,4 +7,5 @@
     <string name="comment">Comment</string>
     <string name="title">Title</string>
     <string name="post">Post</string>
+    <string name="no_internet">No internet available, please check your connected WIFi or Data</string>
 </resources>

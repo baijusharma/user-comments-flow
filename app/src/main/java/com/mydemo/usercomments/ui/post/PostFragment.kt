@@ -62,6 +62,9 @@ class PostFragment : BaseFragment(), IPostClickListener, SearchView.OnQueryTextL
                     postViewModel.getUserPostFromLocal()
                 }
                 is NetworkResponse.Error -> {
+                    if(it.data == null){
+                        postViewModel.getUserPostFromLocal()
+                    }
                     hideProgressDialog()
                     showToast(it.message)
                 }

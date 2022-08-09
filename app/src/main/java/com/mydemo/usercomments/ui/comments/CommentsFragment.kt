@@ -72,14 +72,18 @@ class CommentsFragment : BaseFragment(), SearchView.OnQueryTextListener {
                 }
                 is NetworkResponse.Error -> {
                     hideProgressDialog()
-                    showToast(it.message)
+                    if(it.data == null){
+                        commentsViewModel.getUserCommentsFromLocal()
+                    }
                 }
             }
         }
 
         commentsViewModel.commentData.observe(viewLifecycleOwner){
             it?.let {commentsList ->
+                if(it.isNotEmpty())
                 commentAdapter.submitList(commentsList)
+                else showToast(getString(R.string.no_internet))
             }
         }
     }

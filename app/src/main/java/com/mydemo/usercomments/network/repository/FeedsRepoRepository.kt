@@ -57,6 +57,4 @@ class FeedsRepoRepository @Inject constructor(
         return flow { emit(usersDao.searchCommentsDatabase(searchQuery)) }.flowOn(Dispatchers.IO)
     }
 
-
-    // fun getCommentsByPost() = usersDao.getComments()
 }
