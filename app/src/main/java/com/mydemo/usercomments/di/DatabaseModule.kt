@@ -18,11 +18,7 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): FeedsDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            FeedsDatabase::class.java,
-            FeedsDatabase.DATABASE_NAME
-        ).fallbackToDestructiveMigration().build()
+        return FeedsDatabase.getInstance(appContext)
     }
 
     @Provides
