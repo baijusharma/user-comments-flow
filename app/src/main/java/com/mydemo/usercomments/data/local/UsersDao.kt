@@ -11,10 +11,10 @@ import com.mydemo.usercomments.data.model.PostItem
 interface UsersDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertPost(postEntity: List<PostItem>)
+     fun upsertPost(postEntity: List<PostItem>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-     fun insertComments(commentEntity: List<CommentsItem>)
+     fun upsertComments(commentEntity: List<CommentsItem>)
 
     @Query("SELECT * FROM post")
     fun getAllPost(): List<PostItem>
