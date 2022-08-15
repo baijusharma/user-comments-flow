@@ -25,7 +25,7 @@ class FeedsRepoRepository @Inject constructor(
         return flow {
             val result = safeApiCall { apiService.getPost() }
             result.data?.let {
-                usersDao.insertPost(it)
+                usersDao.upsertPost(it)
             }
             emit(result)
         }.flowOn(Dispatchers.IO)
@@ -35,7 +35,7 @@ class FeedsRepoRepository @Inject constructor(
         return flow {
             val result = safeApiCall { apiService.getComments(postId) }
             result.data?.let {
-                usersDao.insertComments(it)
+                usersDao.upsertComments(it)
             }
             emit(result)
         }.flowOn(Dispatchers.IO)

@@ -49,7 +49,7 @@ class UsersDaoTest {
     fun insertPost() = testScope.runTest {
         val postItemList = ArrayList<PostItem>()
         postItemList.add(PostItem(1,"Test","Test with coroutine", 54 ))
-        usersDao.insertPost(postItemList)
+        usersDao.upsertPost(postItemList)
 
         val userPostItem = usersDao.getAllPost()
 
@@ -63,7 +63,7 @@ class UsersDaoTest {
         postItemList.add(PostItem(1,"Test","Test with coroutine", 54 ))
         val commentsItemList = ArrayList<CommentsItem>()
         commentsItemList.add(CommentsItem("Test",1,2,"Test Comments", "sharmab@gmail.com"))
-        usersDao.insertComments(commentsItemList)
+        usersDao.upsertComments(commentsItemList)
 
         val userCommentItem = usersDao.getAllComments(1)
         assertThat(userCommentItem).isNotNull()
@@ -75,7 +75,7 @@ class UsersDaoTest {
         postItemList.add(PostItem(1,"Test","Test with coroutine", 54 ))
         val commentsItemList = ArrayList<CommentsItem>()
         commentsItemList.add(CommentsItem("Test",2,5,"Test Comments", "test@gmail.com"))
-        usersDao.insertComments(commentsItemList)
+        usersDao.upsertComments(commentsItemList)
 
         val userCommentItem = usersDao.getAllComments(1)
         assertThat(userCommentItem).isNotEqualTo(commentsItemList)
